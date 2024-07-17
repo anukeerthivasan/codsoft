@@ -1,0 +1,79 @@
+class Task:
+    def __init__(self, description, completed=False):
+        self.description = description
+        self.completed = completed
+    
+    def __repr__(self):
+        status = "✓" if self.completed else "✗"
+        return f"[{status}] {self.description}"
+class TodoList:
+    def __init__(self):
+        self.tasks = []
+    
+    def add_task(self, task):
+        self.tasks.append(task)
+    
+    def delete_task(self, index):
+        if 0 <= index < len(self.tasks):
+            del self.tasks[index]
+        else:
+            print("Invalid task number.")
+    
+    def mark_task_complete(self, index):
+        if 0 <= index < len(self.tasks):
+            self.tasks[index].completed = True
+        else:
+            print("Invalid task number.")
+    
+    def mark_task_incomplete(self, index):
+        if 0 <= index < len(self.tasks):
+            self.tasks[index].completed = False
+        else:
+            print("Invalid task number.")
+    
+    def view_tasks(self):
+        if self.tasks:
+            for index, task in enumerate(self.tasks):
+                print(f"{index + 1}. {task}")
+        else:
+            print("No tasks in the list.")
+def main():
+    todo_list = TodoList()
+    
+    while True:
+        print("\n===== To-Do List Menu =====")
+        print("1. Add your Task")
+        print("2. View your existing Tasks")
+        print("3. Mark your Task as Completed")
+        print("4. Delete your Task")
+        print("5. Exit now")
+        
+        option= input("Enter your choice from the above list: ")
+        
+        if option == '1':
+            description = input("Enter your task description here: ")
+            task = Task(description)
+            todo_list.add_task(task)
+            print("Task added successfully!")
+        
+        elif option == '2':
+            print("\n*** Your To-Do List ***")
+            todo_list.view_tasks()
+        
+        elif option == '3':
+            index = int(input("Enter task number to mark as complete: ")) - 1
+            todo_list.mark_task_complete(index)
+        
+        elif option == '4':
+            index = int(input("Enter task number to delete: ")) - 1
+            todo_list.delete_task(index)
+        
+        elif option == '5':
+            print("Exiting To-Do List application Have a good day!")
+            break
+        
+        else:
+            print("Invalid choice. Please enter a number from 1 to 5 from the above list.")
+
+if __name__ == "__main__":
+    main()
